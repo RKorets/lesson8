@@ -11,11 +11,21 @@ def get_birthdays_per_week(users):
         week = new_week + delta
 
         for el in users:
-            if users[el].month == week.month and users[el].day == week.day:
-                if week.weekday()==5 or week.weekday() ==6: #если день недели сб или вс добавляет в отдельный список Дн выходного дня
-                    weekendBirthday.append(el)
-                else:
-                    birthday.append(el)
+            t = datetime.strptime(el['birthday'], '%Y-%m-%d')
+            if t.month == week.month and t.day == week.day:
+                 if week.weekday()==5 or week.weekday() ==6: #если день недели сб или вс добавляет в отдельный список Дн выходного дня
+                     weekendBirthday.append(el["name"])
+                 else:
+                   birthday.append(el["name"])
+
+
+
+        # for el in users:
+        #     if users[el].month == week.month and users[el].day == week.day:
+        #         if week.weekday()==5 or week.weekday() ==6: #если день недели сб или вс добавляет в отдельный список Дн выходного дня
+        #             weekendBirthday.append(el)
+        #         else:
+        #             birthday.append(el)
 
         if len(birthday)==0 or len(birthday)>0:
             if len(birthday)>0 and week.strftime('%A')=="Monday" and len(weekendBirthday)>0:
@@ -41,5 +51,19 @@ users = {
     "Operato": datetime(year=1998, month=3, day=3)
 }
 
+test = [
+    {
+        "name":"Bill",
+        "birthday":"1998-02-08"
+    },
+    {
+        "name":"Giil",
+        "birthday":"1999-02-10"
+    },
+    {
+        "name":"Till",
+        "birthday":"2000-02-06"
+    }
+]
 
-get_birthdays_per_week(users)
+get_birthdays_per_week(test)
